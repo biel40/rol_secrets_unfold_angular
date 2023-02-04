@@ -1,0 +1,31 @@
+<div>
+  <div *ngIf="url == '/' && profile">
+    <div>
+      <h4> Nombre Actual: {{profile.username}} </h4>
+      <h4> Clase actual: {{profile.clase}} </h4>
+      <h4> Poder actual: {{profile.power}} </h4>
+      <h4> Nivel actual: {{profile.level}} </h4>
+    </div>
+
+    <div class="button_div">
+      <a id="open-update-profile" class="primary block nav-link" routerLink="accountEdit"
+        routerLinkActive="active">
+        <button> Actualizar perfil </button>
+      </a>
+    </div>
+
+    <div>
+      <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
+        (click)="goToAttackList()"> Ver mis ataques </button>
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="url == '/attackList'">
+  <button class="block"> Cerrar </button>
+</div>
+
+<div>
+  <button class="block signOut" (click)="signOut()"> Sign out </button>
+</div>

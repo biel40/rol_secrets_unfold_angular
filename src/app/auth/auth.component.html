@@ -1,0 +1,22 @@
+<div>
+  <h1> Rol Game Manager </h1>
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="login material">
+    <input type="text" formControlName="email" class="inputField" placeholder="Email" />
+    <input type="password" formControlName="password" class="inputField" placeholder="Password" />
+    <div>
+      <button type="submit" aria-live="polite" class="button block" [disabled]="loading">
+        {{ loading ? 'Loading' : 'Login' }}
+      </button>
+    </div>
+  </form>
+
+  <p>OR</p>
+
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <div>
+      <button type="submit" aria-live="polite" class="button block" [disabled]="loading" routerLink="account" class="nav-link" routerLinkActive="active">
+        {{ loading ? 'Loading' : 'Sign Up' }}
+      </button>
+    </div>
+  </form>
+</div>

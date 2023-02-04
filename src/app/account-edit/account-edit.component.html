@@ -1,0 +1,24 @@
+<div id="editProfileForm" *ngIf="url == '/accountEdit' && profile">
+    <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()" class="form-widget">
+        <div>
+            <label for="username"> Nombre: </label>
+            <input formControlName="username" id="username" type="text" />
+        </div>
+        <div>
+            <label for="clase"> Clase: </label>
+            <input formControlName="clase" id="clase" type="text" />
+        </div>
+        <div>
+            <label for="power"> Poder: </label>
+            <input formControlName="power" id="power" type="text" />
+        </div>
+        <div>
+            <label for="nivel"> Nivel: </label>
+            <input formControlName="nivel" id="nivel" type="text" />
+        </div>
+    </form>
+
+     <button id="submit_button" type="submit" class="button primary block" [disabled]="loading">
+      {{ loading ? 'Cargando...' : 'Actualizar' }}
+    </button>
+</div>
