@@ -27,41 +27,44 @@ export class AccountComponent implements OnInit {
     avatar_url: '',
   })
 
-  constructor(private readonly supabase: SupabaseService, private formBuilder: FormBuilder, private router: Router) {}
+  constructor (private readonly supabase: SupabaseService, private formBuilder: FormBuilder, private router: Router) {
+    
+  }
 
   async ngOnInit(): Promise<void> {
-    await this.getProfile()
+    await this.getProfile();
 
-    const { username, avatar_url, clase, power, level } = this.profile
-    this.updateProfileForm.patchValue({
-      username,
-      clase,
-      power,
-      level,
-      avatar_url,
-    })
-    
-    this.url = this.router.url;
-    console.log(this.url);
+    if (this.profile) {
+      const { username, avatar_url, clase, power, level } = this.profile;
+
+      this.updateProfileForm.patchValue({
+        username,
+        clase,
+        power,
+        level,
+        avatar_url,
+      })
+    }
   }
 
   async getProfile() {
     try {
       this.loading = true
-      const { user } = this.session
-      let { data: profile, error, status } = await this.supabase.profile(user)
 
-      if (error && status !== 406) {
-        throw error
-      }
+      const user  = this.supabase.session?.user;
+      if (user) {
+        let { data: profile, error, status } = await this.supabase.profile(user);
 
-      if (profile) {
-        this.profile = profile
-      }
+        if (error && status !== 406) {
+          throw error
+        }
+  
+        if (profile) {
+          this.profile = profile
+        }
+      } 
     } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message)
-      }
+      alert(error)
     } finally {
       this.loading = false
     }
@@ -78,6 +81,10 @@ export class AccountComponent implements OnInit {
 
   goToAttackList() {
     this.router.navigate(['/attackList']);
+  }
+
+  goToAccountEdit() {
+    this.router.navigate(['/accountEdit']);
   }
 
   onOutletLoaded(component: AttackListComponent) {

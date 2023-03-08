@@ -1,5 +1,4 @@
-import { Component, Inject, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
 import { Profile } from '../supabase.service';
 
 

@@ -14,7 +14,7 @@
 
   <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
     <div>
-      <button type="submit" aria-live="polite" class="button block" [disabled]="loading" routerLink="account" class="nav-link" routerLinkActive="active">
+      <button type="submit" aria-live="polite" class="button block" [disabled]="loading">
         {{ loading ? 'Loading' : 'Sign Up' }}
       </button>
     </div>

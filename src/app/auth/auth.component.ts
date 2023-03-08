@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder } from '@angular/forms'
 import { SupabaseService } from '../supabase.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-auth',
@@ -17,7 +18,8 @@ export class AuthComponent implements OnInit {
 
   constructor(
     private readonly supabase: SupabaseService,
-    private readonly formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void { }
@@ -41,6 +43,7 @@ export class AuthComponent implements OnInit {
         alert("Email or password incorrect. Please try again.");
       } else {
         alert("Login completed for user " + email);
+        this.goToAccount();
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -51,4 +54,10 @@ export class AuthComponent implements OnInit {
       this.loading = false
     }
   }
+
+  private goToAccount() {
+    console.log(this.supabase._session);
+    this.router.navigate(['account']);
+  }
+
 }
