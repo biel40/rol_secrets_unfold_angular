@@ -10,7 +10,7 @@
     <div class="button_div">
       <a id="open-update-profile" class="primary block nav-link" routerLink="accountEdit"
         routerLinkActive="active" (click)="goToAccountEdit()">
-        <button> Actualizar perfil </button>
+        <button class="button"> Actualizar perfil </button>
       </a>
     </div>
 
@@ -21,5 +21,11 @@
   </div>
   <div>
     <button class="block signOut" (click)="signOut()"> Sign out </button>
+  </div>
+</div>
+
+<div class="my-overlay" *ngIf="showOverlay">
+  <div class="lds-dual-ring">
+
   </div>
 </div>

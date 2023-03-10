@@ -11,7 +11,9 @@ export class AppComponent implements OnInit {
 
   session = this.supabase.session
 
-  constructor(private readonly supabase: SupabaseService) {}
+  constructor(private readonly supabase: SupabaseService) {
+    
+  }
 
   ngOnInit() {
     this.supabase.authChanges((_, session) => (this.session = session));

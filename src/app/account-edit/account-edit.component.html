@@ -1,4 +1,4 @@
-<div id="editProfileForm">
+<div id="editProfileForm" class="form">
     <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()" class="form-widget">
         <div>
             <label for="username"> Nombre: </label>
@@ -13,12 +13,16 @@
             <input formControlName="power" id="power" type="text" />
         </div>
         <div>
-            <label for="nivel"> Nivel: </label>
-            <input formControlName="nivel" id="nivel" type="text" />
+            <label for="level"> Nivel: </label>
+            <input formControlName="level" id="level" type="text" />
         </div>
     </form>
 
-     <button id="submit_button" type="submit" class="button primary block" [disabled]="loading">
+     <button id="submit_button" type="submit" class="button primary block submit" [disabled]="loading" (click)="updateProfile()">
       {{ loading ? 'Cargando...' : 'Actualizar' }}
+    </button>
+
+    <button id="close-button" class="button secondary block close" (click)="goBack()">
+        {{ loading ? 'Cargando...' : 'Volver atrás' }}
     </button>
 </div>

@@ -13,6 +13,7 @@ import { AttackListComponent } from '../attack-list/attack-list-component.compon
 export class AccountComponent implements OnInit {
 
   loading = false;
+  showOverlay = false;
   profile!: Profile;
   url: String = '';
 
@@ -32,8 +33,11 @@ export class AccountComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.getProfile();
 
+    this.displaySpinner();
+
+    await this.getProfile();
+  
     if (this.profile) {
       const { username, avatar_url, clase, power, level } = this.profile;
 
@@ -52,6 +56,7 @@ export class AccountComponent implements OnInit {
       this.loading = true
 
       const user  = this.supabase.session?.user;
+      
       if (user) {
         let { data: profile, error, status } = await this.supabase.profile(user);
 
@@ -68,6 +73,16 @@ export class AccountComponent implements OnInit {
     } finally {
       this.loading = false
     }
+  }
+
+  displaySpinner() {
+
+    this.showOverlay = true;
+
+    setTimeout(() => {
+      console.log("Muestras el overlay durante 2 segundos!")
+      this.showOverlay = false;
+    }, 1000);
   }
 
   async signOut() {
