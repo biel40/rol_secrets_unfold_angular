@@ -56,7 +56,6 @@ export class AuthComponent implements OnInit {
   }
 
   private goToAccount() {
-    console.log(this.supabase._session);
     this.router.navigate(['account']);
   }
 

@@ -3,6 +3,8 @@ import { Profile, SupabaseService } from '../supabase.service';
 import { FormBuilder } from '@angular/forms';
 import { AuthSession } from '@supabase/supabase-js';
 import { Location } from '@angular/common';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-account-edit',
@@ -11,9 +13,17 @@ import { Location } from '@angular/common';
 })
 export class AccountEditComponent implements OnInit {
 
-  url: String = '';
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
+  matcher = new ErrorStateMatcher();
+
+  classList: string[] = ['Guerrero', 'Arquero', 'Mago', 'Sacerdote', 'Bárbaro', 'Pícaro', 'Monje']
+  powerList: string[] = ['Pyro', 'Electro', 'Hydro', 'Aero', 'Geo', 'Natura'];
+  levels: number[] = [0, 1, 2, 3, 4];
+
   loading = false;
   profile!: Profile;
+  error: boolean = false;
 
   @Input()
   session!: AuthSession
@@ -22,8 +32,7 @@ export class AccountEditComponent implements OnInit {
     username: '',
     clase: '',
     power: '',
-    level: 0,
-    avatar_url: '',
+    level: 0
   })
 
   constructor(private readonly supabase: SupabaseService, private formBuilder: FormBuilder, private location: Location) {}
@@ -33,60 +42,60 @@ export class AccountEditComponent implements OnInit {
     await this.getProfile()
 
     if (this.profile) {
-      const { username, avatar_url, clase, power, level } = this.profile
+      const { username, clase, power, level } = this.profile
 
       this.updateProfileForm.patchValue({
         username,
         clase,
         power,
-        level,
-        avatar_url,
+        level
       })
     }
     
   }
 
   async updateProfile(): Promise<void> {
+
+    await this.getProfile()
+    
     try {
       this.loading = true;
 
-      if (this.session) {
+      console.log("Updating profile...");
 
-        console.log("Updating profile...");
-        
-        const { user } = this.session;
-        const username = this.updateProfileForm.value.username as string
-        const clase = this.updateProfileForm.value.clase as string
-        const power = this.updateProfileForm.value.power as string
-        const level = this.updateProfileForm.value.level as number
-        const avatar_url = this.updateProfileForm.value.avatar_url as string
+      let user  = this.supabase._session?.user;
+
+      const username = this.updateProfileForm.value.username as string;
+      const clase = this.updateProfileForm.value.clase as string;
+      const power = this.updateProfileForm.value.power as string;
+      const level = this.updateProfileForm.value.level as number;
   
+      if (user) {
         const { error } = await this.supabase.updateProfile({
           id: user.id,
           username,
           clase, 
           power,
-          level,
-          avatar_url,
+          level
         }) 
-        if (error) 
-          throw error
       }
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)
       }
     } finally {
-      this.loading = false
+      this.loading = false;
+      alert("Usuario actualizado correctamente!");
+      this.goBack();
     }
   }
 
   async getProfile() {
     try {
       this.loading = true;
+
       if (this.session) {
         const { user } = this.session;
-
         let { data: profile, error, status } = await this.supabase.profile(user);
 
         if (error && status !== 406) {
@@ -103,6 +112,13 @@ export class AccountEditComponent implements OnInit {
       }
     } finally {
       this.loading = false
+    }
+  }
+
+  displayValidationModal(type: string) {
+    console.log(type);
+    if (type == "error") {
+      this.error = true;
     }
   }
 

@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { AccountComponent } from './account/account.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AttackListComponent } from './attack-list/attack-list-component.component';
-import { AccountEditComponent } from './account-edit/account-edit.component'
+import { AccountEditComponent } from './account-edit/account-edit.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MaterialModule } from 'src/app/material.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { AccountEditComponent } from './account-edit/account-edit.component'
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

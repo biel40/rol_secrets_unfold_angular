@@ -1,28 +1,73 @@
+<div>
+  <h2> Editar perfil </h2>
+</div>
+
 <div id="editProfileForm" class="form">
-    <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()" class="form-widget">
-        <div>
-            <label for="username"> Nombre: </label>
-            <input formControlName="username" id="username" type="text" />
-        </div>
-        <div>
-            <label for="clase"> Clase: </label>
-            <input formControlName="clase" id="clase" type="text" />
-        </div>
-        <div>
-            <label for="power"> Poder: </label>
-            <input formControlName="power" id="power" type="text" />
-        </div>
-        <div>
-            <label for="level"> Nivel: </label>
-            <input formControlName="level" id="level" type="text" />
-        </div>
-    </form>
+  <form id="edit-form" [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()" class="form-widget">
 
-     <button id="submit_button" type="submit" class="button primary block submit" [disabled]="loading" (click)="updateProfile()">
-      {{ loading ? 'Cargando...' : 'Actualizar' }}
-    </button>
+    <div style="margin-bottom: 1em;">
+      <mat-form-field style="width: 75%;">
+        <mat-label for="username"> Nombre: </mat-label>
+        <input id="username" matInput appearance="outline" formControlName="username" type="text" required />
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Introduce un email válido
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email es <strong>necesario</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-    <button id="close-button" class="button secondary block close" (click)="goBack()">
-        {{ loading ? 'Cargando...' : 'Volver atrás' }}
-    </button>
+    <div>
+      <mat-form-field appearance="outline" style="width: 75%;">
+        <mat-label> Clase: </mat-label>
+        <mat-select formControlName="clase" required>
+          <mat-option *ngFor="let class of classList" [value]="class">
+            {{ class }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" style="width: 75%;">
+        <mat-label> Poder: </mat-label>
+        <mat-select formControlName="power" required>
+          <mat-option *ngFor="let power of powerList" [value]="power">
+            {{ power }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" style="width: 75%;">
+        <mat-label> Nivel: </mat-label>
+        <mat-select formControlName="level" required>
+          <mat-option *ngFor="let level of levels" [value]="level">
+            {{ level }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <button id="submit_button" type="submit" form="edit-form" class="button primary block submit">
+    {{ loading ? 'Cargando...' : 'Actualizar' }}
+  </button>
+
+  <button id="close-button" class="button secondary block close" (click)="goBack()">
+    {{ loading ? 'Cargando...' : 'Volver atrás' }}
+  </button>
+</div>
+
+<div class="my-overlay" *ngIf="loading">
+  <div class="lds-dual-ring">
+
+  </div>
+</div>
+
+<div class="flex justify-between" *ngIf="error">
+  <p class="font-sans">Por favor, rellena todos los campos</p>
+  <button class="font-bold">&#10005;</button>
 </div>

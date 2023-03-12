@@ -29,6 +29,7 @@ body {
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
 
 h1 {
@@ -38,6 +39,7 @@ h1 {
 
 #app {
     margin: 0 auto;
+    width: 75%;
     padding: 1rem;
     text-align: center;
 }

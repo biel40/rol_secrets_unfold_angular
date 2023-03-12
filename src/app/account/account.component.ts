@@ -20,35 +20,13 @@ export class AccountComponent implements OnInit {
   @Input()
   session!: AuthSession
 
-  updateProfileForm = this.formBuilder.group({
-    username: '',
-    clase: '',
-    power: '',
-    level: 0,
-    avatar_url: '',
-  })
-
   constructor (private readonly supabase: SupabaseService, private formBuilder: FormBuilder, private router: Router) {
     
   }
 
   async ngOnInit(): Promise<void> {
-
     this.displaySpinner();
-
     await this.getProfile();
-  
-    if (this.profile) {
-      const { username, avatar_url, clase, power, level } = this.profile;
-
-      this.updateProfileForm.patchValue({
-        username,
-        clase,
-        power,
-        level,
-        avatar_url,
-      })
-    }
   }
 
   async getProfile() {
@@ -80,7 +58,6 @@ export class AccountComponent implements OnInit {
     this.showOverlay = true;
 
     setTimeout(() => {
-      console.log("Muestras el overlay durante 2 segundos!")
       this.showOverlay = false;
     }, 1000);
   }

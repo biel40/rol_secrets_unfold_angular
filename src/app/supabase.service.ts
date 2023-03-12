@@ -15,7 +15,6 @@ export interface Profile {
   clase: string
   power: string
   level: number
-  avatar_url: string
 }
 
 @Injectable({
