@@ -14,6 +14,8 @@ import { LoaderService } from '../loader.service';
 })
 export class AccountEditComponent implements OnInit {
 
+  profile!: Profile;
+
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
   matcher = new ErrorStateMatcher();
@@ -22,11 +24,10 @@ export class AccountEditComponent implements OnInit {
   powerList: string[] = ['Pyro', 'Electro', 'Hydro', 'Aero', 'Geo', 'Natura'];
   levels: number[] = [0, 1, 2, 3, 4];
 
-  profile!: Profile;
   error: boolean = false;
 
   @Input()
-  session!: AuthSession;
+  session!: AuthSession | null;
 
   updateProfileForm = this.formBuilder.group({
     username: '',
@@ -40,9 +41,13 @@ export class AccountEditComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private location: Location,
     private loaderService: LoaderService
-  ) {}
+  ) {
+    this.getProfile()
+  }
 
   async ngOnInit(): Promise<void> {
+
+    this.session = this.supabase.session;
 
     await this.getProfile()
 
@@ -66,9 +71,9 @@ export class AccountEditComponent implements OnInit {
     try {
       this.loaderService.setLoading(true);
 
-      console.log("Updating profile...");
+      console.log("Updating profile......");
 
-      let user  = this.supabase._session?.user;
+      let user  = this.session?.user;
 
       const username = this.updateProfileForm.value.username as string;
       const clase = this.updateProfileForm.value.clase as string;

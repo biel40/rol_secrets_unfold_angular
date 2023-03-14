@@ -3,9 +3,10 @@
 </div>
 
 <div id="editProfileForm" class="form">
-  <form id="edit-form" [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()" class="form-widget">
 
-    <div style="margin-bottom: 1em;">
+  <form id="edit-form" [formGroup]="updateProfileForm" *ngIf="profile" (ngSubmit)="updateProfile()" class="form-widget">
+
+    <div style="margin-bottom: 1em;" >
       <mat-form-field style="width: 75%;">
         <mat-label for="username"> Nombre: </mat-label>
         <input id="username" matInput appearance="outline" formControlName="username" type="text" required />

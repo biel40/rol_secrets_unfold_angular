@@ -38,7 +38,7 @@ export class SupabaseService {
   profile(user: User) {
     return this.supabase
       .from('profiles')
-      .select(`username, avatar_url, clase, power, level`)
+      .select(`username, clase, power, level`)
       .eq('id', user.id)
       .single()
   }
@@ -59,19 +59,11 @@ export class SupabaseService {
   }
 
   updateProfile(profile: Profile) {
+    console.log(profile);
     const update = {
       ...profile,
       updated_at: new Date(),
     }
-
-    return this.supabase.from('profiles').upsert(update)
-  }
-
-  downLoadImage(path: string) {
-    return this.supabase.storage.from('avatars').download(path)
-  }
-
-  uploadAvatar(filePath: string, file: File) {
-    return this.supabase.storage.from('avatars').upload(filePath, file)
+    return this.supabase.from('profiles').upsert(update);
   }
 }
