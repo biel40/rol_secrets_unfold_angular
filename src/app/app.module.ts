@@ -9,6 +9,9 @@ import { AttackListComponent } from './attack-list/attack-list-component.compone
 import { AccountEditComponent } from './account-edit/account-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MaterialModule } from 'src/app/material.module';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { LoadingInterceptor } from './loading.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,8 @@ import { MaterialModule } from 'src/app/material.module';
     AuthComponent,
     AccountComponent,
     AttackListComponent,
-    AccountEditComponent
+    AccountEditComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,9 @@ import { MaterialModule } from 'src/app/material.module';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

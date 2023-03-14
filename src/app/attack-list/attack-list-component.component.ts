@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Profile } from '../supabase.service';
+import { Profile, SupabaseService } from '../supabase.service';
+import { AuthSession } from '@supabase/supabase-js';
+import { Location } from '@angular/common';
+import { LoaderService } from '../loader.service';
 
 
 @Component({
@@ -8,19 +11,49 @@ import { Profile } from '../supabase.service';
   styleUrls: ['./attack-list-component.component.css']
 })
 export class AttackListComponent implements OnInit {
-
-  url = '';
-  //TODO: Cómo puedo pasar estas props desde el Supabase hasta aquí?
-  @Input()
   profile!: Profile;
+  error: boolean = false;
 
-  constructor() {
-    
+  @Input()
+  session!: AuthSession | null;
+
+  constructor(private readonly supabase: SupabaseService, private location: Location, private loaderService: LoaderService) {
+    this.session = this.supabase._session;
   }
 
-  ngOnInit(): void {
-    
+  async ngOnInit(): Promise<void> {
+    await this.getProfile();
   }
 
+  async getProfile() {
+    try {
+      this.session = this.supabase._session;
+      this.loaderService.setLoading(true);
+    
+      if (this.session) {
+        const { user } = this.session;
+
+        let { data: profile, error, status } = await this.supabase.profile(user);
+
+        if (error && status !== 406) {
+          throw error
+        }
+
+        if (profile) {
+          this.profile = profile
+        }
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message)
+      }
+    } finally {
+      this.loaderService.setLoading(false);
+    }
+  }
+
+  goBack() {
+    this.location.back();
+  }
 
 }

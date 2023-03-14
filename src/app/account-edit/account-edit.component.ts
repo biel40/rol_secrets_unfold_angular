@@ -5,6 +5,7 @@ import { AuthSession } from '@supabase/supabase-js';
 import { Location } from '@angular/common';
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-account-edit',
@@ -21,12 +22,11 @@ export class AccountEditComponent implements OnInit {
   powerList: string[] = ['Pyro', 'Electro', 'Hydro', 'Aero', 'Geo', 'Natura'];
   levels: number[] = [0, 1, 2, 3, 4];
 
-  loading = false;
   profile!: Profile;
   error: boolean = false;
 
   @Input()
-  session!: AuthSession
+  session!: AuthSession;
 
   updateProfileForm = this.formBuilder.group({
     username: '',
@@ -35,7 +35,12 @@ export class AccountEditComponent implements OnInit {
     level: 0
   })
 
-  constructor(private readonly supabase: SupabaseService, private formBuilder: FormBuilder, private location: Location) {}
+  constructor(
+    private readonly supabase: SupabaseService, 
+    private formBuilder: FormBuilder, 
+    private location: Location,
+    private loaderService: LoaderService
+  ) {}
 
   async ngOnInit(): Promise<void> {
 
@@ -59,7 +64,7 @@ export class AccountEditComponent implements OnInit {
     await this.getProfile()
     
     try {
-      this.loading = true;
+      this.loaderService.setLoading(true);
 
       console.log("Updating profile...");
 
@@ -71,7 +76,7 @@ export class AccountEditComponent implements OnInit {
       const level = this.updateProfileForm.value.level as number;
   
       if (user) {
-        const { error } = await this.supabase.updateProfile({
+        this.supabase.updateProfile({
           id: user.id,
           username,
           clase, 
@@ -84,7 +89,7 @@ export class AccountEditComponent implements OnInit {
         alert(error.message)
       }
     } finally {
-      this.loading = false;
+      this.loaderService.setLoading(false);
       alert("Usuario actualizado correctamente!");
       this.goBack();
     }
@@ -92,7 +97,7 @@ export class AccountEditComponent implements OnInit {
 
   async getProfile() {
     try {
-      this.loading = true;
+      this.loaderService.setLoading(true);
 
       if (this.session) {
         const { user } = this.session;
@@ -111,14 +116,7 @@ export class AccountEditComponent implements OnInit {
         alert(error.message)
       }
     } finally {
-      this.loading = false
-    }
-  }
-
-  displayValidationModal(type: string) {
-    console.log(type);
-    if (type == "error") {
-      this.error = true;
+      this.loaderService.setLoading(false);
     }
   }
 

@@ -4,6 +4,8 @@ import { AuthSession } from '@supabase/supabase-js'
 import { Profile, SupabaseService } from '../supabase.service'
 import { Router } from '@angular/router';
 import { AttackListComponent } from '../attack-list/attack-list-component.component';
+import { LoaderService } from '../loader.service';
+
 
 @Component({
   selector: 'app-account',
@@ -12,26 +14,28 @@ import { AttackListComponent } from '../attack-list/attack-list-component.compon
 })
 export class AccountComponent implements OnInit {
 
-  loading = false;
-  showOverlay = false;
   profile!: Profile;
-  url: String = '';
 
   @Input()
   session!: AuthSession
 
-  constructor (private readonly supabase: SupabaseService, private formBuilder: FormBuilder, private router: Router) {
+  constructor (
+    private readonly supabase: SupabaseService, 
+    private router: Router,
+    private loaderService: LoaderService
+  ) {
     
   }
 
   async ngOnInit(): Promise<void> {
-    this.displaySpinner();
     await this.getProfile();
   }
 
   async getProfile() {
+
+    this.loaderService.setLoading(true);
+
     try {
-      this.loading = true
 
       const user  = this.supabase.session?.user;
       
@@ -49,17 +53,8 @@ export class AccountComponent implements OnInit {
     } catch (error) {
       alert(error)
     } finally {
-      this.loading = false
+      this.loaderService.setLoading(false);
     }
-  }
-
-  displaySpinner() {
-
-    this.showOverlay = true;
-
-    setTimeout(() => {
-      this.showOverlay = false;
-    }, 1000);
   }
 
   async signOut() {

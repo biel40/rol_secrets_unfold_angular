@@ -53,18 +53,12 @@
   </form>
 
   <button id="submit_button" type="submit" form="edit-form" class="button primary block submit">
-    {{ loading ? 'Cargando...' : 'Actualizar' }}
+    Actualizar
   </button>
 
   <button id="close-button" class="button secondary block close" (click)="goBack()">
-    {{ loading ? 'Cargando...' : 'Volver atrás' }}
+    Volver atrás
   </button>
-</div>
-
-<div class="my-overlay" *ngIf="loading">
-  <div class="lds-dual-ring">
-
-  </div>
 </div>
 
 <div class="flex justify-between" *ngIf="error">

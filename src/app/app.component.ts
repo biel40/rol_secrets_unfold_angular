@@ -8,7 +8,6 @@ import { SupabaseService } from './supabase.service'
 })
 export class AppComponent implements OnInit {
   title = 'angular-user-management'
-
   session = this.supabase.session
 
   constructor(private readonly supabase: SupabaseService) {

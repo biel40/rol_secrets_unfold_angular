@@ -23,8 +23,6 @@ export class AuthComponent implements OnInit {
 
   matcher = new ErrorStateMatcher();
 
-  loading = false
-
   signInForm = this.formBuilder.group({
     email: '',
     password: ''
@@ -40,16 +38,9 @@ export class AuthComponent implements OnInit {
 
   async onSubmit(): Promise<void> {
     try {
-      this.loading = true
 
       const email = this.signInForm.value.email as string;
       const password = this.signInForm.value.password as string;
-
-      console.log(email);
-
-      if (email === "" || password === "") {
-        alert("Email or password fields are empty!");
-      }
 
       const user = await this.supabase.signIn(email, password);
 
@@ -65,7 +56,7 @@ export class AuthComponent implements OnInit {
       }
     } finally {
       this.signInForm.reset()
-      this.loading = false
+      // this.loading = false
     }
   }
 

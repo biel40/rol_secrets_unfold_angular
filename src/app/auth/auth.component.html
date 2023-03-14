@@ -30,20 +30,19 @@
     </div>
 
     <div>
-      <button type="submit" aria-live="polite" class="button block" [disabled]="loading">
-        {{ loading ? 'Loading' : 'Login' }}
+      <button type="submit" aria-live="polite" class="button block">
+        Login
       </button>
     </div>
   </form>
-
-  <p>OR</p>
-
-  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-    <div>
-      <button type="submit" aria-live="polite" class="button block" [disabled]="loading">
-        {{ loading ? 'Loading' : 'Sign Up' }}
-      </button>
-    </div>
-
-  </form>
+  <!-- 
+     <p>OR</p>
+    <form>
+      <div>
+        <button type="submit" aria-live="polite" class="button block">
+          Sign Up
+        </button>
+      </div>
+    </form>
+  -->
 </div>

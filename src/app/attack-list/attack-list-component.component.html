@@ -7,7 +7,9 @@
                 industry. Lorem Ipsum has been the industry's standard dummy text ever
                 since the 1500s.
             </p>
-            <p> {{profile.username}} </p>
+
+            <p *ngIf="profile"> {{ profile.username }} </p>
+
         </li>
         <li>
             <h3>Title 2</h3>
