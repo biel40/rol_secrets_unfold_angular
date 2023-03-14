@@ -1,7 +1,7 @@
 h1 {
-    font-size: 4vh;
-    margin-bottom: 1.5em;
-    margin-top: 1.5em;
+    font-size: 5vh;
+    margin-bottom: 2em;
+    margin-top: 0.5em;
 }
 
 form {
@@ -20,6 +20,7 @@ button {
     height: 44px;
     font-size: 13px;
     font-weight: 600;
+    margin-top: 1.5em;
     text-transform: uppercase;
     -webkit-transition: all 200ms linear;
     transition: all 200ms linear;

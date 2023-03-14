@@ -24,7 +24,7 @@ export class AccountComponent implements OnInit {
     private router: Router,
     private loaderService: LoaderService
   ) {
-    
+    this.getProfile();
   }
 
   async ngOnInit(): Promise<void> {
@@ -36,15 +36,10 @@ export class AccountComponent implements OnInit {
     this.loaderService.setLoading(true);
 
     try {
-
       const user  = this.supabase.session?.user;
       
       if (user) {
         let { data: profile, error, status } = await this.supabase.profile(user);
-
-        if (error && status !== 406) {
-          throw error
-        }
   
         if (profile) {
           this.profile = profile
