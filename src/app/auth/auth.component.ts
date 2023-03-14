@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder } from '@angular/forms'
 import { SupabaseService } from '../supabase.service'
 import { Router } from '@angular/router'
+import { FormControl, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-auth',
@@ -9,6 +11,18 @@ import { Router } from '@angular/router'
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit {
+
+  emailFormControl = new FormControl('', [
+    Validators.required, 
+    Validators.email
+  ]);
+
+  passwordFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  matcher = new ErrorStateMatcher();
+
   loading = false
 
   signInForm = this.formBuilder.group({

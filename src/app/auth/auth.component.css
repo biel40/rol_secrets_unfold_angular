@@ -1,6 +1,7 @@
 h1 {
     font-size: 4vh;
     margin-bottom: 1.5em;
+    margin-top: 1.5em;
 }
 
 form {
@@ -54,56 +55,4 @@ button:hover {
     background-color: #102770;
     color: #ffeba7;
     box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
-}
-
-/* Input */
-.material input:hover:not(:disabled):not(:focus) {
-    border-bottom: 2px solid #1e1e1e !important;
-}
-.material input[value=""] {
-    border-top: 2px solid #1e1e1e !important;
-}
-
-.material input:hover:invalid:not(:placeholder-shown):not(:focus) {
-    border-bottom: 2px solid #ff1744 !important;
-}
-
-.material input:focus {
-    border-bottom: 2px solid #2979ff;
-    transition: all 0.2s;
-}
-
-.material input:invalid:not(:focus) {
-    border-bottom: 2px solid #ff1744;
-}
-
-.material input:placeholder-shown:not(:focus) {
-    border-bottom: 2px solid #8a8a8a;
-}
-
-.material input:disabled {
-    border-bottom: 2px dotted #8a8a8a !important;
-    pointer-events: none;
-    background-color: inherit;
-}
-
-.material input {
-    font-size: inherit;
-    padding: 16px 0 8px 0;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-    background-color: initial;
-    color: whitesmoke;
-    caret-color: #2979ff;
-    border-bottom: 2px solid #8a8a8a;
-}
-
-input {
-    font-family: sans-serif;
-    font-size: 14px;
-    line-height: 1.15;
-    margin: 0;
-    outline: none;
-    min-width: 50%;
 }

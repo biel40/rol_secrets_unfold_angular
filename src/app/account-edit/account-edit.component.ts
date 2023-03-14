@@ -3,7 +3,7 @@ import { Profile, SupabaseService } from '../supabase.service';
 import { FormBuilder } from '@angular/forms';
 import { AuthSession } from '@supabase/supabase-js';
 import { Location } from '@angular/common';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({

@@ -2,9 +2,33 @@
   <section class="mat-typography">
     <h1 class="main-header"> Rol Game Manager </h1>
   </section>
+
   <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="login material">
-    <input type="text" formControlName="email" class="inputField" placeholder="Email" />
-    <input type="password" formControlName="password" class="inputField" placeholder="Password" />
+
+    <div style="width: 75%;">
+      <mat-form-field style="width: 100%;">
+        <mat-label for="username"> Email: </mat-label>
+        <input matInput type="text" formControlName="email" class="inputField" placeholder="Email" type="text" required />
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Introduce un email válido
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email es <strong>necesario</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div style="width: 75%;">
+      <mat-form-field style="width: 100%;">
+        <mat-label for="username"> Contraseña: </mat-label>
+        <input matInput type="password" formControlName="password" class="inputField" placeholder="Password" required/>
+       
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          La contraseña es <strong>necesaria</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
     <div>
       <button type="submit" aria-live="polite" class="button block" [disabled]="loading">
         {{ loading ? 'Loading' : 'Login' }}
@@ -20,5 +44,6 @@
         {{ loading ? 'Loading' : 'Sign Up' }}
       </button>
     </div>
+
   </form>
 </div>
