@@ -58,12 +58,16 @@ export class SupabaseService {
     return this.supabase.auth.signOut()
   }
 
-  updateProfile(profile: Profile) {
-    console.log(profile);
+  async updateProfile(profile: Profile) {
+
     const update = {
       ...profile,
       updated_at: new Date(),
     }
-    return this.supabase.from('profiles').upsert(update);
+
+    return await this.supabase
+    .from('profiles')
+    .upsert(update)
+    .select()
   }
 }
