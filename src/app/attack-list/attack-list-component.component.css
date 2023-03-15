@@ -4,3 +4,11 @@
     list-style: none;
     text-align: center;
 }
+
+li {
+    margin: 3em;
+}
+
+.mat-button {
+    margin: 1em;
+}

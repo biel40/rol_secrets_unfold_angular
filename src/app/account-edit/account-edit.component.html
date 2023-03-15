@@ -6,7 +6,7 @@
 
   <form id="edit-form" [formGroup]="updateProfileForm" *ngIf="profile" (ngSubmit)="updateProfile()" class="form-widget">
 
-    <div style="margin-bottom: 1em;" >
+    <div style="margin-bottom: 1em;">
       <mat-form-field style="width: 75%;">
         <mat-label for="username"> Nombre: </mat-label>
         <input id="username" matInput appearance="outline" formControlName="username" type="text" required />
@@ -53,12 +53,12 @@
     </div>
   </form>
 
-  <button id="submit_button" type="submit" form="edit-form" class="button primary block submit">
-    Actualizar
-  </button>
-
   <button id="close-button" class="button secondary block close" (click)="goBack()">
     Volver atrás
+  </button>
+
+  <button id="submit_button" type="submit" form="edit-form" class="button primary block submit">
+    Actualizar
   </button>
 </div>
 
