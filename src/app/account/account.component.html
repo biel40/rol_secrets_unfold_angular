@@ -9,18 +9,14 @@
       <h4> PODER: {{ profile.power }} </h4>
       <h4> NIVEL: {{ profile.level }} </h4>
     </div>
-
-    <div class="button_div">
-      <a id="open-update-profile" class="primary block nav-link" routerLink="accountEdit" routerLinkActive="active"
-        (click)="goToAccountEdit()">
-        <button class="button"> Actualizar perfil </button>
-      </a>
-      <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
-        (click)="goToAttackList()"> Ver mis ataques </button>
-    </div>
-
-
-
+  </div>
+  <div class="button_div">
+    <a id="open-update-profile" class="primary block nav-link" routerLink="accountEdit" routerLinkActive="active"
+      (click)="goToAccountEdit()">
+      <button class="button"> Actualizar perfil </button>
+    </a>
+    <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
+      (click)="goToAttackList()"> Ver mis ataques </button>
   </div>
   <div>
     <button class="block signOut" (click)="signOut()"> Sign out </button>

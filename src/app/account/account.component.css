@@ -20,6 +20,8 @@
   margin-bottom: 1.6em;
 }
 
-.profile-wrapper{
-  justify-items: flex-start;
+.profile-wrapper {
+  justify-content: center;
+  display: flex;
+  text-align: left;
 }
