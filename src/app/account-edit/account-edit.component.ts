@@ -54,13 +54,14 @@ export class AccountEditComponent implements OnInit {
     await this.getProfile()
 
     if (this.profile) {
-      const { username, clase, power, level } = this.profile
+      const { username, clase, power, level, weapon } = this.profile
 
       this.updateProfileForm.patchValue({
         username,
         clase,
         power,
-        level
+        level,
+        weapon
       })
     }
     
