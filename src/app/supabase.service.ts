@@ -15,6 +15,7 @@ export interface Profile {
   clase: string
   power: string
   level: number
+  weapon: string
 }
 
 @Injectable({
@@ -38,7 +39,7 @@ export class SupabaseService {
   profile(user: User) {
     return this.supabase
       .from('profiles')
-      .select(`username, clase, power, level`)
+      .select(`username, clase, power, level, weapon`)
       .eq('id', user.id)
       .single()
   }
@@ -58,6 +59,7 @@ export class SupabaseService {
     return this.supabase.auth.signOut()
   }
 
+  // Had to fix this manually to work
   async updateProfile(profile: Profile) {
 
     const update = {

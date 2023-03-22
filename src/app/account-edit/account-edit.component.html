@@ -51,6 +51,17 @@
         </mat-select>
       </mat-form-field>
     </div>
+
+    <div>
+      <mat-form-field appearance="outline" style="width: 75%;">
+        <mat-label> Arma: </mat-label>
+        <mat-select formControlName="weapon" required>
+          <mat-option *ngFor="let weapon of weaponList" [value]="weapon">
+            {{ weapon }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </form>
 
   <button id="close-button" class="button secondary block close" (click)="goBack()">

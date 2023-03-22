@@ -22,6 +22,7 @@ export class AccountEditComponent implements OnInit {
 
   classList: string[] = ['Guerrero', 'Arquero', 'Mago', 'Sacerdote', 'Bárbaro', 'Pícaro', 'Monje']
   powerList: string[] = ['Pyro', 'Electro', 'Hydro', 'Aero', 'Geo', 'Natura'];
+  weaponList: string[] = ['Espada', 'Mandoble', 'Arco', 'Daga', 'Libro de hechizos'];
   levels: number[] = [0, 1, 2, 3, 4];
 
   error: boolean = false;
@@ -33,7 +34,8 @@ export class AccountEditComponent implements OnInit {
     username: '',
     clase: '',
     power: '',
-    level: 0
+    level: 0,
+    weapon: ''
   })
 
   constructor(
@@ -79,14 +81,16 @@ export class AccountEditComponent implements OnInit {
       const clase = this.updateProfileForm.value.clase as string;
       const power = this.updateProfileForm.value.power as string;
       const level = this.updateProfileForm.value.level as number;
-  
+      const weapon = this.updateProfileForm.value.weapon as string;
+
       if (user) {
         this.supabase.updateProfile({
           id: user.id,
           username,
           clase, 
           power,
-          level
+          level,
+          weapon
         }) 
       }
     } catch (error) {
