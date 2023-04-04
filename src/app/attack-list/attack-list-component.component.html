@@ -1,6 +1,6 @@
 <div>
     <h3> Lista de habilidades </h3>
-    <div class="attack-container">
+    <div class="attack-container" *ngIf="foundHabilities">
         <ul class="tilesWrap">
             <li *ngFor="let hability of userHabilities; index as index; first as isFirst">
                 <mat-card class="example-card">
@@ -18,6 +18,14 @@
             </li>
         </ul>
     </div>
+    <div *ngIf="foundHabilities === false">
+        <ul class="tilesWrap">
+            <li>
+               <p> No se han encontrado habilidades para este usuario. </p>
+            </li>
+        </ul>
+    </div>
+
     <div>
         <button id="close-button" class="button secondary block close" (click)="goBack()">
             Volver atrás

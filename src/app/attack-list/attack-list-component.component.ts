@@ -13,6 +13,7 @@ import { LoaderService } from '../loader.service';
 export class AttackListComponent implements OnInit {
   profile!: Profile;
   userHabilities!: Hability[];
+  foundHabilities: boolean = false;
 
   error: boolean = false;
 
@@ -64,13 +65,15 @@ export class AttackListComponent implements OnInit {
     let habilitiesFetched = this.supabase.getHabilitiesFromUser(profile);
     let habilities: Hability[] = [];
 
-    habilitiesFetched.then(function (habilitiesArray: any){
+    habilitiesFetched.then( (habilitiesArray: any) => {
       habilitiesArray.forEach((hability: Hability) => {
         habilities.push(hability);
       });
+
+      habilities.length > 0 ? this.foundHabilities = true : this.foundHabilities = false;
+
+      this.userHabilities = habilities;
     }); 
-    this.userHabilities = habilities;
-    console.log(this.userHabilities);
   }
 
   goBack() {
