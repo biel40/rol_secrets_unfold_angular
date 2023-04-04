@@ -74,8 +74,6 @@ export class AccountEditComponent implements OnInit {
     try {
       this.loaderService.setLoading(true);
 
-      console.log("Updating profile......");
-
       let user  = this.session?.user;
 
       const username = this.updateProfileForm.value.username as string;

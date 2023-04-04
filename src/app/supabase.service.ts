@@ -18,12 +18,24 @@ export interface Profile {
   weapon: string
 }
 
+export interface Hability {
+  id?: string
+  name?: string
+  description?: string
+  clase: string
+  power: string
+  level: number
+  total_uses: number
+  current_uses: number
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseService {
-  private supabase: SupabaseClient
-  _session: AuthSession | null = null
+
+  private supabase: SupabaseClient;
+  _session: AuthSession | null = null;
 
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
@@ -42,6 +54,29 @@ export class SupabaseService {
       .select(`username, clase, power, level, weapon`)
       .eq('id', user.id)
       .single()
+  }
+
+  async getAllHabilities() {
+    let { data: habilities, error } = await this.supabase
+      .from('habilities')
+      .select('*');
+      
+    return error ? error : habilities;
+  }
+
+  async getHabilitiesFromUser(profile: Profile) {
+    try {
+      let { data: habilities, error } = await this.supabase
+      .from('habilities')
+      .select('*')
+      .eq("level", profile.level)
+      .eq("power", profile.power);
+      
+      return error ? error : habilities;
+    } catch(error) {
+      return error;
+    }
+   
   }
 
   authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
