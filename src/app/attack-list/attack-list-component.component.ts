@@ -20,11 +20,16 @@ export class AttackListComponent implements OnInit {
   @Input()
   session!: AuthSession | null;
 
-  constructor(private readonly supabase: SupabaseService, private location: Location, private loaderService: LoaderService) {
+  constructor(
+    private readonly supabase: SupabaseService, 
+    private location: Location, 
+    private loaderService: LoaderService
+  ) {
     this.session = this.supabase._session;
   }
 
   async ngOnInit(): Promise<void> {
+    this.loaderService.setLoading(true);
     await this.getProfile();
     await this.getHabilitiesFromUser(this.profile);
   }
@@ -44,12 +49,12 @@ export class AttackListComponent implements OnInit {
         }
 
         if (profile) {
-          this.profile = profile
+          this.profile = profile;
         }
       }
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message)
+        alert(error.message);
       }
     } finally {
       this.loaderService.setLoading(false);
@@ -57,23 +62,40 @@ export class AttackListComponent implements OnInit {
   }
 
   async getHabilities() {
-    let habilities = await this.supabase.getAllHabilities();
-    return habilities;
+    try {
+      this.loaderService.setLoading(true);
+      let habilities = await this.supabase.getAllHabilities();
+      return habilities;
+    } catch(error) {
+      if (error instanceof Error){
+        alert(error.message);
+      }
+      return error;
+    } finally {
+      this.loaderService.setLoading(false);
+    }
   }
 
   getHabilitiesFromUser(profile: Profile) {
-    let habilitiesFetched = this.supabase.getHabilitiesFromUser(profile);
-    let habilities: Hability[] = [];
-
-    habilitiesFetched.then( (habilitiesArray: any) => {
-      habilitiesArray.forEach((hability: Hability) => {
-        habilities.push(hability);
-      });
-
-      habilities.length > 0 ? this.foundHabilities = true : this.foundHabilities = false;
-
-      this.userHabilities = habilities;
-    }); 
+    try {
+      this.loaderService.setLoading(true);
+      let habilitiesFetched = this.supabase.getHabilitiesFromUser(profile);
+      let habilities: Hability[] = [];
+  
+      habilitiesFetched.then( (habilitiesArray: any) => {
+        habilitiesArray.forEach((hability: Hability) => {
+          habilities.push(hability);
+        });
+        habilities.length > 0 ? this.foundHabilities = true : this.foundHabilities = false;
+        this.userHabilities = habilities;
+      }); 
+    } catch(error) {
+      if (error instanceof Error){
+        alert(error.message);
+      }
+    } finally {
+      this.loaderService.setLoading(false);
+    }
   }
 
   goBack() {

@@ -69,7 +69,7 @@ export class SupabaseService {
       let { data: habilities, error } = await this.supabase
       .from('habilities')
       .select('*')
-      .eq("level", profile.level)
+      .lte("level", profile.level)
       .eq("power", profile.power);
       
       return error ? error : habilities;
