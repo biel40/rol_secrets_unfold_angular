@@ -1,31 +1,31 @@
 <div>
     <h3> Lista de habilidades </h3>
-    <div class="attack-container" *ngIf="foundHabilities">
-        <ul class="tilesWrap">
-            <li *ngFor="let hability of userHabilities; index as index; first as isFirst">
-                <mat-card class="example-card">
-                    <mat-card-header>
-                        <mat-card-title>{{ hability.name }}</mat-card-title>
-                        <mat-card-subtitle>{{ hability.description }}</mat-card-subtitle>
-                    </mat-card-header>
-                    <img mat-card-image src="" alt="">
-                    <mat-card-content>
-                        <p>
-                            {{ hability.current_uses }} / {{ hability.total_uses }}
-                        </p>
-                    </mat-card-content>
-                </mat-card>
-            </li>
-        </ul>
+    <div *ngIf="userHabilities">
+        <div class="attack-container" *ngIf="foundHabilities ">
+            <ul class="tilesWrap">
+                <li *ngFor="let hability of userHabilities; index as index; first as isFirst">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <mat-card-title>{{ hability.name }}</mat-card-title>
+                            <mat-card-subtitle>{{ hability.description }}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>
+                                {{ hability.current_uses }} / {{ hability.total_uses }}
+                            </p>
+                        </mat-card-content>
+                    </mat-card>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="foundHabilities === false">
+            <ul class="tilesWrap">
+                <li>
+                    <p> No se han encontrado habilidades para este usuario. </p>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div *ngIf="foundHabilities === false">
-        <ul class="tilesWrap">
-            <li>
-               <p> No se han encontrado habilidades para este usuario. </p>
-            </li>
-        </ul>
-    </div>
-
     <div>
         <button id="close-button" class="button secondary block close" (click)="goBack()">
             Volver atrás

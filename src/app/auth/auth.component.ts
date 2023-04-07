@@ -47,7 +47,6 @@ export class AuthComponent implements OnInit {
       if (user.error && user.error.message === "Invalid login credentials") {
         alert("Email or password incorrect. Please try again.");
       } else {
-        alert("Login completed for user " + email);
         this.goToAccount();
       }
     } catch (error) {

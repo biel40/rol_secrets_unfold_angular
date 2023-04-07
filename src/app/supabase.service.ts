@@ -70,13 +70,13 @@ export class SupabaseService {
       .from('habilities')
       .select('*')
       .lte("level", profile.level)
-      .eq("power", profile.power);
+      .eq("power", profile.power)
+      .order("level");
       
       return error ? error : habilities;
     } catch(error) {
       return error;
     }
-   
   }
 
   authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
