@@ -20,8 +20,8 @@ export class AttackListComponent implements OnInit {
   session!: AuthSession | null;
 
   constructor(
-    private readonly supabase: SupabaseService, 
-    private location: Location, 
+    private readonly supabase: SupabaseService,
+    private location: Location,
     private loaderService: LoaderService
   ) {
     this.session = this.supabase._session;
@@ -37,7 +37,7 @@ export class AttackListComponent implements OnInit {
     try {
       this.session = this.supabase._session;
       this.loaderService.setLoading(true);
-    
+
       if (this.session) {
         const { user } = this.session;
 
@@ -65,8 +65,8 @@ export class AttackListComponent implements OnInit {
       this.loaderService.setLoading(true);
       let habilities = await this.supabase.getAllHabilities();
       return habilities;
-    } catch(error) {
-      if (error instanceof Error){
+    } catch (error) {
+      if (error instanceof Error) {
         alert(error.message);
       }
       return error;
@@ -80,15 +80,30 @@ export class AttackListComponent implements OnInit {
       this.loaderService.setLoading(true);
       let habilitiesFetched = this.supabase.getHabilitiesFromUser(profile);
       let habilities: Hability[] = [];
-  
-      habilitiesFetched.then( (habilitiesArray: any) => {
+
+      habilitiesFetched.then((habilitiesArray: any) => {
         habilitiesArray.forEach((hability: Hability) => {
           habilities.push(hability);
         });
         this.userHabilities = habilities;
-      }); 
-    } catch(error) {
-      if (error instanceof Error){
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      this.loaderService.setLoading(false);
+    }
+  }
+
+  
+  //TODO: Finish this method
+  async addHability(hability: Hability) {
+    try {
+      this.loaderService.setLoading(true);
+      // let { data: profile, error, status } = await this.supabase.addHabilityToUser(this.profile, hability);
+    } catch (error) {
+      if (error instanceof Error) {
         alert(error.message);
       }
     } finally {
@@ -98,6 +113,5 @@ export class AttackListComponent implements OnInit {
 
   goBack() {
     this.location.back();
-  }
-
+  } 
 }
