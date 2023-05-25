@@ -96,12 +96,26 @@ export class AttackListComponent implements OnInit {
     }
   }
 
-  
-  //TODO: Finish this method
-  async addHability(hability: Hability) {
+
+  public addUses(hability: Hability) {
     try {
       this.loaderService.setLoading(true);
-      // let { data: profile, error, status } = await this.supabase.addHabilityToUser(this.profile, hability);
+      hability.current_uses += 1;
+      this.supabase.updateHability(hability);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      this.loaderService.setLoading(false);
+    }
+  }
+
+  public removeUses(hability: Hability) {
+    try {
+      this.loaderService.setLoading(true);
+      hability.current_uses -= 1;
+      this.supabase.updateHability(hability);
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);

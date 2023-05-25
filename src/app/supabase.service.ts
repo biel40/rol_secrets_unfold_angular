@@ -79,6 +79,34 @@ export class SupabaseService {
     }
   }
 
+  // Function to update user's habilities
+  async updateHabilities(habilities: Hability[]) {
+    try {
+      let { data: habilitiesUpdated, error } = await this.supabase
+      .from('habilities')
+      .upsert(habilities)
+      .select('*');
+
+      return error ? error : habilitiesUpdated;
+    } catch(error) {
+      return error;
+    }
+  }
+
+  // Function to update only one hability
+  async updateHability(hability: Hability) {
+    try {
+      let { data: habilityUpdated, error } = await this.supabase
+      .from('habilities')
+      .upsert(hability)
+      .select('*');
+
+      return error ? error : habilityUpdated;
+    } catch(error) {
+      return error;
+    }
+  }
+
   authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
     return this.supabase.auth.onAuthStateChange(callback)
   }

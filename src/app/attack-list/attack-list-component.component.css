@@ -21,3 +21,14 @@ li {
 .mat-card-header {
     display: block !important;
 }
+
+.example-button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+mat-icon {
+    margin-bottom: 0.5em;
+}
