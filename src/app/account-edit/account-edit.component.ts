@@ -22,7 +22,8 @@ export class AccountEditComponent implements OnInit {
 
   classList: string[] = ['Guerrero', 'Arquero', 'Mago', 'Sacerdote', 'Bárbaro', 'Pícaro', 'Monje']
   powerList: string[] = ['Pyro', 'Electro', 'Hydro', 'Aero', 'Geo', 'Natura'];
-  weaponList: string[] = ['Espada', 'Mandoble', 'Arco', 'Daga', 'Libro de hechizos'];
+  weaponList: string[] = ['Espada', 'Mandoble', 'Arco', 'Daga', 'Libro de hechizos', 'Puños', 'Baston'];
+  
   levels: number[] = [0, 1, 2, 3, 4];
 
   error: boolean = false;
