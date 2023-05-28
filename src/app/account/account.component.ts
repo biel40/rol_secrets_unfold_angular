@@ -37,6 +37,7 @@ export class AccountComponent implements OnInit {
 
     try {
       const user  = this.supabase.session?.user;
+      console.log(user);
       
       if (user) {
         let { data: profile, error, status } = await this.supabase.profile(user);

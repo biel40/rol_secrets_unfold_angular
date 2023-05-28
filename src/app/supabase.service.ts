@@ -135,4 +135,11 @@ export class SupabaseService {
     .upsert(update)
     .select()
   }
+
+  async signUp(email: string, password: string) {
+    return await this.supabase.auth.signUp({
+      email: email,
+      password: password,
+    });
+  }
 }
