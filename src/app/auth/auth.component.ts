@@ -38,7 +38,7 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  async onSubmit(): Promise<void> {
+  async handleLogin(): Promise<void> {
     try {
       const email = this.signInForm.value.email as string;
       const password = this.signInForm.value.password as string;
@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit {
       // Sign In with Email and Password
       const user = await this.supabase.signIn(email, password);
 
-      if (user.error && user.error.message === "Invalid login credentials") {
+      if (user.error && user.error.message == "Invalid login credentials") {
         alert("Email or password incorrect. Please try again.");
       } else {
         this.goToAccount();
@@ -62,32 +62,25 @@ export class AuthComponent implements OnInit {
   }
 
   public async handleSignup(): Promise<void> {
-    try {
-      const email = this.signInForm.value.email as string;
-      const password = this.signInForm.value.password as string;
+    const email = this.signInForm.value.email as string;
+    const password = this.signInForm.value.password as string;
 
-      // We try to sign in first
-      const userSignin = await this.supabase.signIn(email, password);
+    // We try to sign in first
+    const userSignin = await this.supabase.signIn(email, password);
 
-      // If the user doesn't exist, we create it
-      if (userSignin.error && userSignin.error.message == "Invalid login credentials") {
-        const userSignup = await this.supabase.signUp(email, password);
+    // If the user doesn't exist, we create it
+    if (userSignin.error && userSignin.error.message == "Invalid login credentials") {
+      const userSignup = await this.supabase.signUp(email, password);
 
-        if (userSignup.error) {
-          throw userSignup.error;
-        } else {
-          this.goToAccount();
-        }
+      if (userSignup.error) {
+        throw userSignup.error;
       } else {
-        throw new Error("User already exists!");
+        alert("User created successfully! Please confirm your email.");
+        this.loading = true;
+        this.goToAccount();
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message)
-      }
-    } finally {
-      this.signInForm.reset()
-      // this.loading = false
+    } else {
+      throw new Error("User already exists!");
     }
   }
 

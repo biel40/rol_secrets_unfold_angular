@@ -1,38 +1,50 @@
 <div>
-  <section class="mat-typography">
-    <h2 class="main-header"> Datos del perfil: </h2>
-  </section>
-  <div class="profile-wrapper">
-    <div *ngIf="profile">
+  <div *ngIf="profile && user?.confirmed_at; else elseBlock" class="profile-wrapper">
+    <div>
+      <section class="mat-typography">
+        <h2 class="main-header"> Datos del perfil: </h2>
+      </section>
       <div>
-      <h4> NOMBRE: {{ profile.username }} </h4>
-      <h4> CLASE: {{ profile.clase }} </h4>
-      <h4> PODER: {{ profile.power }} </h4>
-      <h4> NIVEL: {{ profile.level }} </h4>
-      <h4> ARMA: {{ profile.weapon }} </h4>
-    </div>
-    <hr>
+        <h4> NOMBRE: {{ profile.username }} </h4>
+        <h4> CLASE: {{ profile.clase }} </h4>
+        <h4> PODER: {{ profile.power }} </h4>
+        <h4> NIVEL: {{ profile.level }} </h4>
+        <h4> ARMA: {{ profile.weapon }} </h4>
+      </div>
+      <hr>
       <div>
         <h4> VIDA: {{ profile.current_hp}} / {{ profile.total_hp }} </h4>
         <h4> FUERZA: {{ profile.attack }} </h4>
-        <h4> DEFENSA: {{  profile.defense }} </h4>
+        <h4> DEFENSA: {{ profile.defense }} </h4>
         <h4> ATAQUE ESPECIAL: {{ profile.special_attack }} </h4>
         <h4> DEFENSA ESPECIAL {{ profile.special_defense }} </h4>
         <h4> VELOCIDAD: {{ profile.speed }} </h4>
       </div>
     </div>
   </div>
-  <div class="button_div">
-    <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
-      (click)="goToStatsEdit()"> Editar mis estadísticas </button>
-    <a id="open-update-profile" class="primary block nav-link" routerLink="accountEdit" routerLinkActive="active"
-      (click)="goToAccountEdit()">
-      <button class="button"> Actualizar perfil </button>
-    </a>
-    <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
-      (click)="goToAttackList()"> Ver mis ataques </button>
+
+  <div *ngIf="profile && user?.confirmed_at">
+    <div class="button_div">
+      <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
+        (click)="goToStatsEdit()"> Editar mis estadísticas </button>
+      <a id="open-update-profile" class="primary block nav-link" routerLink="accountEdit" routerLinkActive="active"
+        (click)="goToAccountEdit()">
+        <button class="button"> Actualizar perfil </button>
+      </a>
+      <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
+        (click)="goToAttackList()"> Ver mis ataques </button>
+    </div>
+    <div>
+      <button class="block signOut" (click)="signOut()"> Sign out </button>
+    </div>
   </div>
+
   <div>
-    <button class="block signOut" (click)="signOut()"> Sign out </button>
+    <ng-template #elseBlock>
+      <h2 style="margin: 1.5em;"> Perfil creado correctamente! </h2>
+      <h3 style="margin: 1.5em;"> Por favor, verifica tu email antes de comenzar la partida. </h3>
+      <button style="margin: 1em;" (click)="goToIndex()"> Volver atrás </button>
+    </ng-template>
   </div>
+
 </div>

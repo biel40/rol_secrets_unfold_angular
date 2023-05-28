@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder } from '@angular/forms'
-import { AuthSession } from '@supabase/supabase-js'
+import { AuthSession, User } from '@supabase/supabase-js'
 import { Profile, SupabaseService } from '../supabase.service'
 import { Router } from '@angular/router';
 import { AttackListComponent } from '../attack-list/attack-list-component.component';
@@ -15,6 +15,7 @@ import { LoaderService } from '../loader.service';
 export class AccountComponent implements OnInit {
 
   profile!: Profile;
+  user: User | null = null;
 
   @Input()
   session!: AuthSession
@@ -39,6 +40,7 @@ export class AccountComponent implements OnInit {
       const user  = this.supabase.session?.user;
       
       if (user) {
+        this.user = user;
         let { data: profile, error, status } = await this.supabase.profile(user);
   
         if (profile) {
