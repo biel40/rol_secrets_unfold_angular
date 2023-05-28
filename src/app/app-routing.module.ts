@@ -5,6 +5,7 @@ import { AccountEditComponent } from './account-edit/account-edit.component';
 import { AccountComponent } from './account/account.component';
 import { AuthComponent } from './auth/auth.component';
 import { StatsEditComponent } from './stats-edit/stats-edit.component';
+import { CheckRolStatsComponent } from './check-rol-stats/check-rol-stats.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'attackList', component: AttackListComponent, pathMatch: 'full'},
   { path: 'accountEdit', component: AccountEditComponent, pathMatch: 'full'},
   { path: 'statsEdit', component: StatsEditComponent, pathMatch: 'full'},
+  { path: 'checkRolStats', component: CheckRolStatsComponent, pathMatch: 'full'},
 ];
 
 @NgModule({

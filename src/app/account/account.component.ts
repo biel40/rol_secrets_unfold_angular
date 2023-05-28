@@ -75,6 +75,10 @@ export class AccountComponent implements OnInit {
     this.router.navigate(['/statsEdit']);
   }
 
+  goToCheckRolStats() {
+    this.router.navigate(['/checkRolStats']);
+  }
+
   onOutletLoaded(component: AttackListComponent) {
     component.profile = this.profile;
   } 
