@@ -12,6 +12,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './loading.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StatsEditComponent } from './stats-edit/stats-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     AccountComponent,
     AttackListComponent,
     AccountEditComponent,
+    StatsEditComponent,
     SpinnerComponent
   ],
   imports: [

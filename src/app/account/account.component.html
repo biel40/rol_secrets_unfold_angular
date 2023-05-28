@@ -4,14 +4,27 @@
   </section>
   <div class="profile-wrapper">
     <div *ngIf="profile">
+      <div>
       <h4> NOMBRE: {{ profile.username }} </h4>
       <h4> CLASE: {{ profile.clase }} </h4>
       <h4> PODER: {{ profile.power }} </h4>
       <h4> NIVEL: {{ profile.level }} </h4>
       <h4> ARMA: {{ profile.weapon }} </h4>
     </div>
+    <hr>
+      <div>
+        <h4> VIDA: {{ profile.current_hp}} / {{ profile.total_hp }} </h4>
+        <h4> FUERZA: {{ profile.attack }} </h4>
+        <h4> DEFENSA: {{  profile.defense }} </h4>
+        <h4> ATAQUE ESPECIAL: {{ profile.special_attack }} </h4>
+        <h4> DEFENSA ESPECIAL {{ profile.special_defense }} </h4>
+        <h4> VELOCIDAD: {{ profile.speed }} </h4>
+      </div>
+    </div>
   </div>
   <div class="button_div">
+    <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
+      (click)="goToStatsEdit()"> Ver mis estadísticas </button>
     <a id="open-update-profile" class="primary block nav-link" routerLink="accountEdit" routerLinkActive="active"
       (click)="goToAccountEdit()">
       <button class="button"> Actualizar perfil </button>

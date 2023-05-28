@@ -15,7 +15,16 @@ export interface Profile {
   clase: string
   power: string
   level: number
-  weapon: string
+  weapon: string,
+  habilities?: Hability[],
+  current_hp?: number,
+  total_hp?: number,
+  attack?: number,
+  defense?: number,
+  special_attack?: number,
+  special_defense?: number,
+  speed?: number,
+  current_experience?: number
 }
 
 export interface Hability {
@@ -51,7 +60,7 @@ export class SupabaseService {
   profile(user: User) {
     return this.supabase
       .from('profiles')
-      .select(`username, clase, power, level, weapon`)
+      .select(`username, clase, power, level, weapon, current_hp, total_hp, attack, defense, special_attack, special_defense, speed, current_experience`)
       .eq('id', user.id)
       .single()
   }
@@ -135,6 +144,21 @@ export class SupabaseService {
     .upsert(update)
     .select()
   }
+
+
+  async updateProfileStats(profile: Profile) {
+      
+      const update = {
+        ...profile,
+        updated_at: new Date(),
+      }
+  
+      return await this.supabase
+      .from('profiles')
+      .upsert(update)
+      .select(`current_hp, total_hp, attack, defense, special_attack, special_defense, speed, current_experience`)
+  }
+  
 
   async signUp(email: string, password: string) {
     return await this.supabase.auth.signUp({

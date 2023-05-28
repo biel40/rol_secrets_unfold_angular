@@ -1,0 +1,64 @@
+<div>
+    <h2> Editar perfil </h2>
+  </div>
+  
+  <div id="editProfileForm" class="form">
+  
+    <form id="edit-form" [formGroup]="updateStatsForm" *ngIf="profile" (ngSubmit)="updateStats()" class="form-widget">
+  
+        <div>
+            <mat-form-field appearance="outline" style="width: 75%;">
+              <mat-label> Vida Actual: </mat-label>
+              <input matInput type="number" formControlName="current_hp" required>
+            </mat-form-field>
+          </div>
+  
+      <div>
+        <mat-form-field appearance="outline" style="width: 75%;">
+          <mat-label> Ataque: </mat-label>
+          <input matInput type="number" formControlName="attack" required>
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <mat-form-field appearance="outline" style="width: 75%;">
+          <mat-label> Defensa: </mat-label>
+          <input matInput type="number" formControlName="defense" required>
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <mat-form-field appearance="outline" style="width: 75%;">
+          <mat-label> Ataque especial: </mat-label>
+            <input matInput type="number" formControlName="special_attack" required>
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <mat-form-field appearance="outline" style="width: 75%;">
+            <mat-label> Defensa Especial: </mat-label>
+            <input matInput type="number" formControlName="special_defense" required>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" style="width: 75%;">
+            <mat-label> Velocidad: </mat-label>
+            <input matInput type="number" formControlName="speed" required>
+        </mat-form-field>
+      </div>
+    </form>
+  
+    <button id="close-button" class="button secondary block close" (click)="goBack()">
+      Volver atrás
+    </button>
+  
+    <button id="submit_button" type="submit" form="edit-form" class="button primary block submit">
+      Actualizar
+    </button>
+  </div>
+  
+  <div class="flex justify-between" *ngIf="error">
+    <p class="font-sans">Por favor, rellena todos los campos</p>
+    <button class="font-bold">&#10005;</button>
+  </div>
