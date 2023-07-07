@@ -1,24 +1,44 @@
 <div>
   <div *ngIf="profile && user?.confirmed_at; else elseBlock" class="profile-wrapper">
     <div>
-      <section class="mat-typography">
-        <h2 class="main-header"> Datos del perfil: </h2>
-      </section>
-      <div>
-        <h4> NOMBRE: {{ profile.username }} </h4>
-        <h4> CLASE: {{ profile.clase }} </h4>
-        <h4> PODER: {{ profile.power }} </h4>
-        <h4> NIVEL: {{ profile.level }} </h4>
-        <h4> ARMA: {{ profile.weapon }} </h4>
+      <div class="profile-wrapper">
+        <h4 class="main-header"> Perfil </h4>
       </div>
-      <hr>
-      <div>
-        <h4> VIDA: {{ profile.current_hp}} / {{ profile.total_hp }} </h4>
-        <h4> FUERZA: {{ profile.attack }} </h4>
-        <h4> DEFENSA: {{ profile.defense }} </h4>
-        <h4> ATAQUE ESPECIAL: {{ profile.special_attack }} </h4>
-        <h4> DEFENSA ESPECIAL {{ profile.special_defense }} </h4>
-        <h4> VELOCIDAD: {{ profile.speed }} </h4>
+
+      <div (click)="activateLink('profile')">
+        <a id="open-update-profile" class="primary block nav-link" routerLink="accountEdit" routerLinkActive="active"
+          (click)="goToAccountEdit()"> </a>
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title class="card-title-stats">Datos</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h4> Nombre: {{ profile.username }} </h4>
+            <h4> Clase: {{ profile.clase }} </h4>
+            <h4> Poder: {{ profile.power }} </h4>
+            <h4> Nivel: {{ profile.level }} </h4>
+            <h4> Arma: {{ profile.weapon }} </h4>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+
+      <div (click)="activateLink('stats')">
+        <a id="open-update-stats" class="primary block nav-link" routerLink="statsEdit" routerLinkActive="active"
+        (click)="goToStatsEdit()"> </a>
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title class="card-title-stats">Estadísticas</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h4>Vida: {{ profile.current_hp }} / {{profile.total_hp}}</h4>
+            <h4> Fuerza: {{ profile.attack }} </h4>
+            <h4> Defensa: {{ profile.defense }} </h4>
+            <h4> Ataque Especial: {{ profile.special_attack }} </h4>
+            <h4> Defensa Especial: {{ profile.special_defense }} </h4>
+            <h4> Velocidad: {{ profile.speed }} </h4>
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
   </div>
@@ -26,18 +46,18 @@
   <div *ngIf="profile && user?.confirmed_at">
     <div class="button_div">
       <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
-        (click)="goToStatsEdit()"> Editar mis estadísticas 
+        (click)="goToStatsEdit()"> Editar mis estadísticas
       </button>
       <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
-        (click)="goToCheckRolStats()"> 
-        Comprobar estadísticas de roleo 
-    </button>
+        (click)="goToCheckRolStats()">
+        Comprobar estadísticas de roleo
+      </button>
       <a id="open-update-profile" class="primary block nav-link" routerLink="accountEdit" routerLinkActive="active"
         (click)="goToAccountEdit()">
         <button class="button"> Actualizar perfil </button>
       </a>
       <button class="button block attack-list-display-button nav-link" routerLink="attackList" routerLinkActive="active"
-        (click)="goToAttackList()"> Ver mis ataques 
+        (click)="goToAttackList()"> Ver mis ataques
       </button>
     </div>
     <div>

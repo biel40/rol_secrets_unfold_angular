@@ -25,3 +25,22 @@
   display: flex;
   text-align: left;
 }
+
+h2 {
+  margin-top: 1rem;
+}
+
+.mat-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-title-stats {
+  display: inline-block;
+}
+
+.example-card {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}

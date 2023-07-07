@@ -20,8 +20,8 @@ export class AccountComponent implements OnInit {
   @Input()
   session!: AuthSession
 
-  constructor (
-    private readonly supabase: SupabaseService, 
+  constructor(
+    private readonly supabase: SupabaseService,
     private router: Router,
     private loaderService: LoaderService
   ) {
@@ -37,16 +37,16 @@ export class AccountComponent implements OnInit {
     this.loaderService.setLoading(true);
 
     try {
-      const user  = this.supabase.session?.user;
-      
+      const user = this.supabase.session?.user;
+
       if (user) {
         this.user = user;
         let { data: profile, error, status } = await this.supabase.profile(user);
-  
+
         if (profile) {
           this.profile = profile
         }
-      } 
+      }
     } catch (error) {
       alert(error)
     } finally {
@@ -57,6 +57,13 @@ export class AccountComponent implements OnInit {
   async signOut() {
     await this.supabase.signOut();
     this.goToIndex();
+  }
+
+  public activateLink(location: string): void {
+    const link = location == 'profile' ? document.getElementById('open-update-profile') : document.getElementById('open-update-stats');
+    if (link) {
+      link.click();
+    }
   }
 
   goToIndex() {
@@ -81,5 +88,5 @@ export class AccountComponent implements OnInit {
 
   onOutletLoaded(component: AttackListComponent) {
     component.profile = this.profile;
-  } 
+  }
 }
