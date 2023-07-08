@@ -32,3 +32,8 @@ li {
 mat-icon {
     margin-bottom: 0.5em;
 }
+
+button:hover {
+    background-color: blanchedalmond;
+    color: black;
+}
