@@ -15,6 +15,8 @@ import { LoaderService } from '../loader.service';
 export class AccountComponent implements OnInit {
 
   profile!: Profile;
+  calculatedProfile!: Profile;
+
   user: User | null = null;
 
   @Input()
@@ -25,11 +27,12 @@ export class AccountComponent implements OnInit {
     private router: Router,
     private loaderService: LoaderService
   ) {
-    this.getProfile();
+
   }
 
   async ngOnInit(): Promise<void> {
     await this.getProfile();
+    await this.calculateProfile();
   }
 
   async getProfile() {
@@ -89,4 +92,54 @@ export class AccountComponent implements OnInit {
   onOutletLoaded(component: AttackListComponent) {
     component.profile = this.profile;
   }
+
+  private calculateProfile() {
+    if (this.profile) {
+      const calculatedProfile: any = {
+        ...this.profile,
+        total_hp: this.profile.total_hp ? this.profile.total_hp * this.profile.level : 0,
+        attack: this.profile.attack ? this.profile.attack * this.profile.level : 0,
+        defense: this.profile.defense ? this.profile.defense * this.profile.level : 0,
+        special_attack: this.profile.special_attack ? this.profile.special_attack * this.profile.level : 0,
+        special_defense: this.profile.special_defense ? this.profile.special_defense * this.profile.level : 0,
+        speed: this.profile.speed ? this.profile.speed * this.profile.level : 0,
+      };
+  
+      switch (this.profile.clase) {
+        case 'Guerrero':
+          calculatedProfile.total_hp += 2 * this.profile.level;
+          calculatedProfile.current_hp += 2 * this.profile.level;
+          calculatedProfile.attack += 2 * this.profile.level;
+          calculatedProfile.defense += 2 * this.profile.level;
+          break;
+        case 'Mago':
+          calculatedProfile.special_attack += 2 * this.profile.level;
+          calculatedProfile.special_defense += 2 * this.profile.level;
+          break;
+        case 'Arquero':
+          calculatedProfile.special_attack += 2 * this.profile.level;
+          calculatedProfile.speed += 2 * this.profile.level;
+          break;
+        case 'Sacerdote':
+          // No additional calculations for Sacerdote class. It heals more than the others.
+          break;
+        case 'Bárbaro':
+          calculatedProfile.attack += 2 * this.profile.level;
+          calculatedProfile.defense += 2 * this.profile.level;
+          break;
+        case 'Pícaro':
+          calculatedProfile.speed += 2 * this.profile.level;
+          break;
+        case 'Monje':
+          calculatedProfile.attack += 1 * this.profile.level;
+          calculatedProfile.speed += 2 * this.profile.level;
+          break;
+        default:
+          break;
+      }
+  
+      this.calculatedProfile = calculatedProfile;
+    }
+  }
+  
 }

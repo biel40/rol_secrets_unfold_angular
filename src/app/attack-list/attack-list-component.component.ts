@@ -3,6 +3,8 @@ import { Hability, Profile, SupabaseService } from '../supabase.service';
 import { AuthSession, User } from '@supabase/supabase-js';
 import { Location } from '@angular/common';
 import { LoaderService } from '../loader.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../modal/modal.component';
 
 
 @Component({
@@ -22,7 +24,8 @@ export class AttackListComponent implements OnInit {
   constructor(
     private readonly supabase: SupabaseService,
     private location: Location,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private dialog: MatDialog
   ) {
     this.session = this.supabase._session;
   }
@@ -128,4 +131,32 @@ export class AttackListComponent implements OnInit {
   goBack() {
     this.location.back();
   } 
+
+  public calculateDamage() : void {
+    try {
+      this.loaderService.setLoading(true);
+      
+      const damage = 10; // Coloca aquí la lógica para calcular el daño real
+      this.openModal(damage);
+
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      this.loaderService.setLoading(false);
+    }
+  }
+
+  public openModal(damage: number) {
+    console.log(damage);
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '600px',
+      data: { damage: damage }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Modal cerrado');
+    });
+  }
 }

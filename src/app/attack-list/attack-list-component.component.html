@@ -13,11 +13,14 @@
                             {{ hability.current_uses }} / {{ hability.total_uses }}
                         </p>
                         <div class="example-button-container">
-                            <button (click)="addUses(hability)">
-                                <mat-icon> + </mat-icon>
-                            </button>
                             <button (click)="removeUses(hability)">
                                 <mat-icon> - </mat-icon>
+                            </button>
+                            <button (click)="calculateDamage()">
+                                DMG
+                            </button>
+                            <button (click)="addUses(hability)">
+                                <mat-icon> + </mat-icon>
                             </button>
                         </div>
                     </mat-card-content>

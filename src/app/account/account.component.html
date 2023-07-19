@@ -31,12 +31,12 @@
             <mat-card-title class="card-title-stats">Estadísticas</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <h4>Vida: {{ profile.current_hp }} / {{profile.total_hp}}</h4>
-            <h4> Fuerza: {{ profile.attack }} </h4>
-            <h4> Defensa: {{ profile.defense }} </h4>
-            <h4> Ataque Especial: {{ profile.special_attack }} </h4>
-            <h4> Defensa Especial: {{ profile.special_defense }} </h4>
-            <h4> Velocidad: {{ profile.speed }} </h4>
+            <h4> Vida: {{ calculatedProfile.current_hp }} / {{ calculatedProfile.total_hp }} </h4>
+            <h4> Fuerza: {{ calculatedProfile.attack }} </h4>
+            <h4> Defensa: {{ calculatedProfile.defense }} </h4>
+            <h4> Ataque Especial: {{ calculatedProfile.special_attack }} </h4>
+            <h4> Defensa Especial: {{ calculatedProfile.special_defense }} </h4>
+            <h4> Velocidad: {{ calculatedProfile.speed }} </h4>
           </mat-card-content>
         </mat-card>
       </div>
