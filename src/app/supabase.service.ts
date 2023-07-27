@@ -36,6 +36,8 @@ export interface Hability {
   level: number
   total_uses: number
   current_uses: number
+  dice: string
+  scales_with: string
 }
 
 @Injectable({

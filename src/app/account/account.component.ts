@@ -74,7 +74,7 @@ export class AccountComponent implements OnInit {
   }
 
   goToAttackList() {
-    this.router.navigate(['/attackList']);
+    this.router.navigate(['/attackList'], { state: { calculatedProfile: this.calculatedProfile} });
   }
 
   goToAccountEdit() {

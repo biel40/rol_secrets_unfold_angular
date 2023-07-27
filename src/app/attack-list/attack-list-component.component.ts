@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { LoaderService } from '../loader.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,6 +14,9 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./attack-list-component.component.css']
 })
 export class AttackListComponent implements OnInit {
+
+  calculatedProfile!: Profile;
+
   profile!: Profile;
   userHabilities!: Hability[];
 
@@ -25,9 +29,22 @@ export class AttackListComponent implements OnInit {
     private readonly supabase: SupabaseService,
     private location: Location,
     private loaderService: LoaderService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
     this.session = this.supabase._session;
+
+    if (localStorage.getItem('calculatedProfile') != null){
+      let sessionObject = JSON.parse(localStorage.getItem('calculatedProfile') as string);
+      this.calculatedProfile = sessionObject.calculatedProfile;
+    } else {
+      const navigation = this.router.getCurrentNavigation();
+  
+      if (navigation?.extras.state) {
+        localStorage.setItem('calculatedProfile', JSON.stringify(navigation?.extras.state as Profile));
+        this.calculatedProfile = navigation?.extras.state as Profile;
+      }
+    }
   }
 
   async ngOnInit(): Promise<void> {
@@ -132,12 +149,25 @@ export class AttackListComponent implements OnInit {
     this.location.back();
   } 
 
-  public calculateDamage() : void {
+  public calculateDamage(hability: Hability) : void {
     try {
       this.loaderService.setLoading(true);
       
-      const damage = 10; // Coloca aquí la lógica para calcular el daño real
-      this.openModal(damage);
+      let damage = 0;
+
+      console.log(this.calculatedProfile.attack);
+      
+      const profileProperties = Object.keys(this.calculatedProfile);
+
+      for (const property of profileProperties) {
+        const value = this.calculatedProfile[property as keyof Profile];
+
+        if (property == hability.scales_with) {
+          damage = Number(value) * this.profile.level;
+        }
+      }
+
+      this.openModal(damage, hability.dice);
 
     } catch (error) {
       if (error instanceof Error) {
@@ -148,11 +178,11 @@ export class AttackListComponent implements OnInit {
     }
   }
 
-  public openModal(damage: number) {
-    console.log(damage);
+  public openModal(damage: number, dice: string) {
+
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '600px',
-      data: { damage: damage }
+      data: { damage: damage, dice: dice }
     });
   
     dialogRef.afterClosed().subscribe(result => {
