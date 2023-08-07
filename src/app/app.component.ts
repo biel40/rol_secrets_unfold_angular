@@ -8,13 +8,19 @@ import { SupabaseService } from './supabase.service'
 })
 export class AppComponent implements OnInit {
   title = 'angular-user-management'
-  session = this.supabase.session
+  session: any;
 
-  constructor(private readonly supabase: SupabaseService) {
-    
+  constructor(
+    private readonly supabase: SupabaseService
+  ) {
+
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.supabase.getSession().then((session) => {
+      this.session = session;
+    });
+    
     this.supabase.authChanges((_, session) => (this.session = session));
   }
 }

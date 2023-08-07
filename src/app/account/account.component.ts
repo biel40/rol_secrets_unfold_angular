@@ -16,11 +16,8 @@ export class AccountComponent implements OnInit {
 
   profile!: Profile;
   calculatedProfile!: Profile;
-
+  session: AuthSession | null = null;
   user: User | null = null;
-
-  @Input()
-  session!: AuthSession
 
   constructor(
     private readonly supabase: SupabaseService,
@@ -40,15 +37,23 @@ export class AccountComponent implements OnInit {
     this.loaderService.setLoading(true);
 
     try {
-      const user = this.supabase.session?.user;
 
-      if (user) {
-        this.user = user;
-        let { data: profile, error, status } = await this.supabase.profile(user);
+      await this.supabase.getSession().then((session) => {
+        this.session = session;
+      });
 
-        if (profile) {
-          this.profile = profile
+      if (this.session) {
+        const user = await this.session.user;
+
+        if (user) {
+          this.user = user;
+          let { data: profile } = await this.supabase.profile(user);
+
+          if (profile) {
+            this.profile = profile
+          }
         }
+
       }
     } catch (error) {
       alert(error)
@@ -74,7 +79,7 @@ export class AccountComponent implements OnInit {
   }
 
   goToAttackList() {
-    this.router.navigate(['/attackList'], { state: { calculatedProfile: this.calculatedProfile} });
+    this.router.navigate(['/attackList'], { state: { calculatedProfile: this.calculatedProfile } });
   }
 
   goToAccountEdit() {
@@ -104,7 +109,7 @@ export class AccountComponent implements OnInit {
         special_defense: this.profile.special_defense ? this.profile.special_defense * this.profile.level : 0,
         speed: this.profile.speed ? this.profile.speed * this.profile.level : 0,
       };
-  
+
       switch (this.profile.clase) {
         case 'Guerrero':
           calculatedProfile.total_hp += 2 * this.profile.level;
@@ -137,9 +142,9 @@ export class AccountComponent implements OnInit {
         default:
           break;
       }
-  
+
       this.calculatedProfile = calculatedProfile;
     }
   }
-  
+
 }

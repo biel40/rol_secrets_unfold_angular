@@ -44,9 +44,11 @@ export class StatsEditComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
-    this.session = this.supabase.session;
+   await this.supabase.getSession().then((session) => {
+      this.session = session;
+    });
 
-    await this.getProfile()
+    await this.getProfile();
 
     if (this.profile) {
       const { current_hp, attack, defense, special_attack, special_defense, speed } = this.profile;

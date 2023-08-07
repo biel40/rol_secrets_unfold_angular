@@ -52,12 +52,14 @@ export class SupabaseService {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
   }
 
-  get session() {
-    this.supabase.auth.getSession().then(({ data }) => {
-      this._session = data.session
-    })
-    return this._session
+  async getSession() {
+    if (!this._session) {
+      const { data } = await this.supabase.auth.getSession();
+      this._session = data.session;
+    }
+    return this._session;
   }
+  
 
   profile(user: User) {
     return this.supabase

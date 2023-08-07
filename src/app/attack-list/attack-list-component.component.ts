@@ -32,7 +32,6 @@ export class AttackListComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router
   ) {
-    this.session = this.supabase._session;
 
     if (localStorage.getItem('calculatedProfile') != null){
       let sessionObject = JSON.parse(localStorage.getItem('calculatedProfile') as string);
@@ -49,13 +48,22 @@ export class AttackListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loaderService.setLoading(true);
+
+    await this.supabase.getSession().then((session) => {
+      this.session = session;
+    });
+
     await this.getProfile();
     await this.getHabilitiesFromUser(this.profile);
   }
 
   async getProfile() {
     try {
-      this.session = this.supabase._session;
+
+      this.supabase.getSession().then((session) => {
+        this.session = session;
+      });
+
       this.loaderService.setLoading(true);
 
       if (this.session) {
@@ -154,8 +162,6 @@ export class AttackListComponent implements OnInit {
       this.loaderService.setLoading(true);
       
       let damage = 0;
-
-      console.log(this.calculatedProfile.attack);
       
       const profileProperties = Object.keys(this.calculatedProfile);
 

@@ -50,7 +50,9 @@ export class AccountEditComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
-    this.session = this.supabase.session;
+    await this.supabase.getSession().then((session) => {
+      this.session = session;
+    });
 
     await this.getProfile()
 
