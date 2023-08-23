@@ -1,0 +1,98 @@
+h1 {
+    margin-bottom: 1em;
+}
+
+.form {
+    margin-top: 3em;
+}
+
+.div-input-username {
+    width: 100%;
+}
+
+.button {
+    margin: 1em;
+}
+
+.submit {
+    background-color: brown;
+    color: white;
+}
+
+.submit:hover {
+    background-color: blanchedalmond;
+    color: black;
+}
+
+.close:hover {
+    background-color: blanchedalmond;
+    color: black;
+}
+
+label {
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #9b9b9b;
+}
+
+input:focus {
+    padding-bottom: 6px;
+    border-width: 3px;
+    border-image: linear-gradient(to right, #11998e, #38ef7d);
+    border-image-slice: 1;
+}
+
+
+.my-overlay {
+    left: 0 !important;
+    top: 0 !important;
+    z-index: 10000 !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: fixed !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    visibility: visible !important;
+    transition: visibility 0s, opacity 0.5s linear !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Stats container */
+.stats-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-row {
+    display: flex;
+    flex-direction: column;
+}

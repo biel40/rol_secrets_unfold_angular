@@ -13,6 +13,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './loading.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StatsEditComponent } from './stats-edit/stats-edit.component';
+import { CheckRolStatsComponent } from './check-rol-stats/check-rol-stats.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { StatsEditComponent } from './stats-edit/stats-edit.component';
     AccountComponent,
     AttackListComponent,
     AccountEditComponent,
+    CheckRolStatsComponent,
     StatsEditComponent,
     SpinnerComponent
   ],

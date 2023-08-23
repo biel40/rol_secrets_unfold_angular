@@ -1,1 +1,14 @@
-<p>check-rol-stats works!</p>
+<div>
+    <h2> Estadísticas de Roleo </h2>
+</div>
+
+<div id="roling-stats" class="stats-container" style="margin-top: 3em;">
+    <div *ngFor="let stat of getStatKeys()" class="stat-row">
+        <p class="stat-label"><strong>{{ stat | titlecase }}</strong></p>
+        <p> {{ getStatValue(stat) }}</p>
+    </div>
+</div>
+
+<button id="close-button" class="button secondary block close" (click)="goBack()">
+    Volver atrás
+</button>

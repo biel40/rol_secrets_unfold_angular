@@ -84,6 +84,7 @@ export class SupabaseService {
       .select('*')
       .lte("level", profile.level)
       .eq("power", profile.power)
+      .in("clase", ["Base", profile.clase])
       .order("level");
       
       return error ? error : habilities;
