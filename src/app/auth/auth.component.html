@@ -3,7 +3,7 @@
     <h1 class="main-header"> Rol Game Manager </h1>
   </section>
 
-  <form [formGroup]="signInForm" (ngSubmit)="handleLogin()" class="login material">
+  <form [formGroup]="signInForm" class="login material">
 
     <div style="width: 75%;">
       <mat-form-field style="width: 100%;">
@@ -31,7 +31,7 @@
     </div>
 
     <div>
-      <button type="submit" aria-live="polite" class="button block">
+      <button type="submit" aria-live="polite" class="button block" (click)="handleLogin()">
         Login
       </button>
       <p> O </p>
@@ -40,4 +40,9 @@
       </button>
     </div>
   </form>
+
+</div>
+
+<div *ngIf="displayErrorMessage" class="error-message">
+  Oops, ha ocurrido un error. Por favor, inténtalo de nuevo más tarde.
 </div>

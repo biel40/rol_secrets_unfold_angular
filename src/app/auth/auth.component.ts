@@ -13,6 +13,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 export class AuthComponent implements OnInit {
 
   loading = false;
+  public displayErrorMessage: boolean = false;
 
   emailFormControl = new FormControl('', [
     Validators.required, 
@@ -57,7 +58,6 @@ export class AuthComponent implements OnInit {
       }
     } finally {
       this.signInForm.reset()
-      // this.loading = false
     }
   }
 
@@ -65,23 +65,22 @@ export class AuthComponent implements OnInit {
     const email = this.signInForm.value.email as string;
     const password = this.signInForm.value.password as string;
 
-    // We try to sign in first
-    const userSignin = await this.supabase.signIn(email, password);
-
-    // If the user doesn't exist, we create it
-    if (userSignin.error && userSignin.error.message == "Invalid login credentials") {
-      const userSignup = await this.supabase.signUp(email, password);
-
-      if (userSignup.error) {
-        throw userSignup.error;
+    this.supabase.signUp(email, password).then((response) => {
+      console.log(response);
+      if (response.error) {
+        if (response.error.message == "Email rate limit exceeded") {
+          alert('Ha superado el límite de intentos. Por favor, inténtelo de nuevo más tarde.');
+          this.displayErrorMessage = true;
+          console.log(this.displayErrorMessage);
+        } else {
+          alert('Ha ocurrido un error inesperado. Por favor, inténtelo de nuevo.');
+          this.displayErrorMessage = true;
+          console.log(this.displayErrorMessage);
+        }
       } else {
-        alert("User created successfully! Please confirm your email.");
-        this.loading = true;
         this.goToAccount();
       }
-    } else {
-      throw new Error("User already exists!");
-    }
+    });
   }
 
   private goToAccount() {
