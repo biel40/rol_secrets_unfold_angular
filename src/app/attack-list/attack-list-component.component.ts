@@ -168,7 +168,7 @@ export class AttackListComponent implements OnInit {
         const value = this.calculatedProfile[property as keyof Profile];
 
         if (property == hability.scales_with) {
-          damage = Number(value) * this.profile.level;
+          damage = (Number(value) * this.profile.level) / 2;
         }
       }
 

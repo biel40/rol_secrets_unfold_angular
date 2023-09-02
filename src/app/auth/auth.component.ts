@@ -87,7 +87,7 @@ export class AuthComponent implements OnInit {
         }
       });
     } else {
-      alert('Por favor, introduce email y contraseña para registrarte.');
+      alert('Por favor, introduce email y contraseña para poder registrarte.');
     }
   }
 
