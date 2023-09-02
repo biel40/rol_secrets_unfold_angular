@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder } from '@angular/forms'
 import { AuthSession, User } from '@supabase/supabase-js'
-import { Profile, SupabaseService } from '../supabase.service'
+import { Profile, SupabaseService } from '../services/supabase/supabase.service'
 import { Router } from '@angular/router';
 import { AttackListComponent } from '../attack-list/attack-list-component.component';
-import { LoaderService } from '../loader.service';
+import { LoaderService } from '../services/loader/loader.service';
 
 
 @Component({

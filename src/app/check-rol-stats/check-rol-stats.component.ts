@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Profile, SupabaseService } from '../supabase.service';
+import { Profile, SupabaseService } from '../services/supabase/supabase.service';
 import { AuthSession } from '@supabase/supabase-js';
-import { LoaderService } from '../loader.service';
+import { LoaderService } from '../services/loader/loader.service';
 import { Router } from '@angular/router';
 
 interface Stats {

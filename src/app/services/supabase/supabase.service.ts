@@ -171,4 +171,19 @@ export class SupabaseService {
       password: password,
     });
   }
+
+  async insertProfile(profile: Profile) {
+    return await this.supabase
+    .from('profiles')
+    .insert(profile)
+    .select()
+  }
+
+  async upsertProfile(profile: Profile) {
+    return await this.supabase
+    .from('profiles')
+    .upsert(profile)
+    .select()
+  }
+
 }

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Profile, SupabaseService } from '../supabase.service';
+import { Profile, SupabaseService } from '../services/supabase/supabase.service';
 import { FormBuilder } from '@angular/forms';
 import { AuthSession } from '@supabase/supabase-js';
 import { Location } from '@angular/common';
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { LoaderService } from '../loader.service';
+import { LoaderService } from '../services/loader/loader.service';
 
 @Component({
   selector: 'app-account-edit',
