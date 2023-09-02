@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit {
   loading = false;
   public displayErrorMessage: boolean = false;
   public user: User | null = null;
-  
+
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -47,13 +47,14 @@ export class AuthComponent implements OnInit {
       const email = this.signInForm.value.email as string;
       const password = this.signInForm.value.password as string;
 
-      // Sign In with Email and Password
-      const user = await this.supabase.signIn(email, password);
+      if (email != "" && password != "") {
+        const user = await this.supabase.signIn(email, password);
 
-      if (user.error && user.error.message == "Invalid login credentials") {
-        alert("Email or password incorrect. Please try again.");
-      } else {
-        this.goToAccount();
+        if (user.error && user.error.message == "Invalid login credentials") {
+          alert("Email or password incorrect. Please try again.");
+        } else {
+          this.goToAccount();
+        }
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -64,26 +65,30 @@ export class AuthComponent implements OnInit {
     }
   }
 
-  
+
   public async handleSignup(): Promise<void> {
     const email = this.signInForm.value.email as string;
     const password = this.signInForm.value.password as string;
 
-    this.supabase.signUp(email, password).then((response) => {
-      if (response.error) {
-        if (response.error.message == "Email rate limit exceeded") {
-          alert('Ha superado el límite de intentos. Por favor, inténtelo de nuevo más tarde.');
-          this.displayErrorMessage = true;
+    if (email != "" && password != "") {
+      this.supabase.signUp(email, password).then((response) => {
+        if (response.error) {
+          if (response.error.message == "Email rate limit exceeded") {
+            alert('Ha superado el límite de intentos. Por favor, inténtelo de nuevo más tarde.');
+            this.displayErrorMessage = true;
+          } else {
+            alert('Ha ocurrido un error inesperado. Por favor, inténtelo de nuevo.');
+            this.displayErrorMessage = true;
+          }
         } else {
-          alert('Ha ocurrido un error inesperado. Por favor, inténtelo de nuevo.');
-          this.displayErrorMessage = true;
+          this.user = response.data.user;
+          this.createProfile();
+          this.goToAccount();
         }
-      } else {
-        this.user = response.data.user;
-        this.createProfile();
-        this.goToAccount();
-      }
-    });
+      });
+    } else {
+      alert('Por favor, introduce email y contraseña para registrarte.');
+    }
   }
 
   private async createProfile() {
