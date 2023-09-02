@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { FormControl, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { LoaderService } from '../services/loader/loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-edit',
@@ -43,7 +44,8 @@ export class AccountEditComponent implements OnInit {
     private readonly supabase: SupabaseService, 
     private formBuilder: FormBuilder, 
     private location: Location,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private _router: Router
   ) {
     this.getProfile()
   }
@@ -102,7 +104,7 @@ export class AccountEditComponent implements OnInit {
     } finally {
       this.loaderService.setLoading(false);
       alert("Usuario actualizado correctamente!");
-      this.goBack();
+      this._router.navigate(['account']);
     }
   }
 
