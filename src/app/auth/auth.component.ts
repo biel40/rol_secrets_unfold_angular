@@ -53,7 +53,7 @@ export class AuthComponent implements OnInit {
         if (user.error && user.error.message == "Invalid login credentials") {
           alert("Email or password incorrect. Please try again.");
         } else {
-          this.goToAccount();
+          this.router.navigate(['account']);
         }
       }
     } catch (error) {
@@ -83,7 +83,7 @@ export class AuthComponent implements OnInit {
         } else {
           this.user = response.data.user;
           this.createProfile();
-          this.goToAccount();
+          this.router.navigate(['account']);
         }
       });
     } else {
@@ -113,10 +113,6 @@ export class AuthComponent implements OnInit {
         }
       });
     }
-  }
-
-  private goToAccount() {
-    this.router.navigate(['account']);
   }
 
 }
