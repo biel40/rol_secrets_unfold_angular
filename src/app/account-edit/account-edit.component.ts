@@ -38,7 +38,7 @@ export class AccountEditComponent implements OnInit {
     power: '',
     level: 0,
     weapon: ''
-  })
+  });
 
   constructor(
     private readonly supabase: SupabaseService, 
